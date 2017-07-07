@@ -15,12 +15,7 @@ HashTable.prototype.insert = function(k, v) {
     this.rehash(2);
   }
 
- // if (this.size <= this._limit * .25) {
 
- //    this.size = 0;
- //    console.log('in if ' + this.size);
- //    this.rehash(.5);
- //  }
 
   // if (this._limit >= (this.min * 2) && this.size <= this._limit * .25) {
   //   this.size = 0;
@@ -82,6 +77,11 @@ HashTable.prototype.remove = function(k) {
         bucket.splice(i, 1);
       }
     }
+  }
+  if (this._limit >= (this.min * 2) && this.size <= this._limit * .25) {
+    this.size = 0;
+    console.log('in if ' + this.size);
+    this.rehash(.5);
   }
 };
 
