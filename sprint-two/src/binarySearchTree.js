@@ -1,7 +1,9 @@
 var BinarySearchTree = function(value) {
   var BinaryTree = {};
 
-  BinaryTree.head = new BSNode(value);
+  BinaryTree.value = value;
+  BinaryTree.left = null;
+  BinaryTree.right = null;
 
   _.extend(BinaryTree, BinaryTreeMethods);
 
@@ -11,34 +13,51 @@ var BinarySearchTree = function(value) {
 var BinaryTreeMethods = {};
 
 BinaryTreeMethods.insert = function(value) {
+  var currentNode;
+
+  var alreadyChanged = false;
+  if(this.value > value){
+    if(this.left === null){
+      var n = new BSNode(value);
+      this.left = n;
+      alreadyChanged = true;
+    } else {
+      var currentNode = this.left;
+    }
+  } else {
+    if(this.right === null){
+      var n = new BSNode(value);
+      this.right = n;
+      alreadyChanged = true;
+    } else {
+      var currentNode = this.right;
+    }
+  }
+
+  var flag = true;
 
 
-    var currentNode = this.head;
-
-    var flag = true;
-
-    while(flag) {
-      if(value < currentNode.value) {
-        if(currentNode.left === null) {
-          var n = new BSNode(value);
-          currentNode.left = n;
-          flag = false;
-        } else {
-          currentNode = currentNode.left;
-        }
-      }
-
-      if(value > currentNode.value) {
-        if(currentNode.right === null) {
-          var n = new BSNode(value);
-          currentNode.right = n;
-          flag = false;
-        } else {
-          currentNode = currentNode.right;
-        }
+  while(flag && !alreadyChanged) {
+    if(value < currentNode.value) {
+      if(currentNode.left === null) {
+        var n = new BSNode(value);
+        currentNode.left = n;
+        flag = false;
+      } else {
+        currentNode = currentNode.left;
       }
     }
 
+    if(value > currentNode.value) {
+      if(currentNode.right === null) {
+        var n = new BSNode(value);
+        currentNode.right = n;
+        flag = false;
+      } else {
+        currentNode = currentNode.right;
+      }
+    }
+  }
 };
 
 
@@ -60,6 +79,8 @@ BinaryTreeMethods.contains = function(value) {
   }
 return false;
 }
+
+
 
 BinaryTreeMethods.depthFirstLog = function(cb) {
 
