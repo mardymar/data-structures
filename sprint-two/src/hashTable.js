@@ -13,6 +13,9 @@ HashTable.prototype.insert = function(k, v) {
   //   this.prototype.rehashup;
   //   var index = getIndexBelowMaxForKey(k, this._limit);
   // }
+
+
+
   this._storage.set(index, v);
 };
 
