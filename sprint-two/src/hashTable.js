@@ -1,9 +1,19 @@
 var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
+  this.size = 0;
+  this.newStorage = null;
 };
 
 HashTable.prototype.insert = function(k, v) {
+  this.size++;
+  if (this.size >= this._limit * .75) {
+
+    this.size = 0;
+    console.log('in if ' + this.size);
+    this.rehash(2);
+  }
+
   var index = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage[index];
   if (bucket) {
@@ -14,6 +24,7 @@ HashTable.prototype.insert = function(k, v) {
 
       else {
         this._storage[index].push([k, v]);
+        this._storage.set(index, [k, v]);
       }
     }
   }
@@ -43,6 +54,8 @@ HashTable.prototype.retrieve = function(k) {
 };
 
 HashTable.prototype.remove = function(k) {
+  this.size--;
+
   var index = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage[index];
   if (bucket) {
@@ -54,17 +67,27 @@ HashTable.prototype.remove = function(k) {
   }
 };
 
-// HashTable.prototype.rehashup = function() {
-//   this._limit = this._limit * 2;
-//   var newStorage = LimitedArray(this._limit);
+HashTable.prototype.rehash = function(newLimit) {
+  console.log("rehash .. " + JSON.stringify(this._storage ));
+  //var ht = new HashTable();
+  //ht._limit = ht._limit * newLimit;
+  this._limit = this._limit * newLimit;
+  this.newStorage = LimitedArray(this._limit);
 
-//   this._storage.each(function(value){
-//     var index = getIndexBelowMaxForKey(value, this._limit);
-//     newStorage.set(index, value);
-//   });
+  console.log("hit1");
+  this._storage.each(function(bucket, index){
+    console.log("hit2 ... " + bucket + ' ... index ... ' + index);
+    if(bucket !== undefined){
+      console.log("bucket if ... " + bucket);
+      this.newStorage.insert(bucket[0], bucket[1]);
+    }
+  });
 
-//   this._storage = JSON.parse(JSON.stringify(newStorage));
-// }
+  console.log("hit3");
+  console.log("newStorage  .. " + JSON.stringify( newStorage ));
+
+  this._storage = JSON.parse(JSON.stringify(this.newStorage));
+}
 
 /*
  * Complexity: What is the time complexity of the above functions?

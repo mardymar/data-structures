@@ -103,15 +103,13 @@ BinaryTreeMethods.contains = function(value) {
 
 BinaryTreeMethods.depthFirstLog = function(cb) {
   cb(this.value);
-  
+
   if(this.left !== null) {
     this.depthFirstLogRecursion(cb, this.left);
   }
   if(this.right !== null) {
     this.depthFirstLogRecursion(cb, this.right);
   }
-
-
 };
 
 BinaryTreeMethods.depthFirstLogRecursion = function(cb, node) {
@@ -124,8 +122,6 @@ BinaryTreeMethods.depthFirstLogRecursion = function(cb, node) {
   if(node.right !== null) {
     this.depthFirstLogRecursion(cb, node.right);
   }
-
-
 };
 
 
