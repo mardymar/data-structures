@@ -99,18 +99,38 @@ BinaryTreeMethods.contains = function(value) {
   }
 
   return false;
-}
-
-
+};
 
 BinaryTreeMethods.depthFirstLog = function(cb) {
+  cb(this.value);
+  
+  if(this.left !== null) {
+    this.depthFirstLogRecursion(cb, this.left);
+  }
+  if(this.right !== null) {
+    this.depthFirstLogRecursion(cb, this.right);
+  }
 
-}
 
+};
+
+BinaryTreeMethods.depthFirstLogRecursion = function(cb, node) {
+  cb(node.value);
+
+  if(node.left !== null) {
+    this.depthFirstLogRecursion(cb, node.left);
+  }
+
+  if(node.right !== null) {
+    this.depthFirstLogRecursion(cb, node.right);
+  }
+
+
+};
 
 
 var BSNode = function(value) {
   this.value = value;
   this.left = null;
   this.right = null;
-}
+};
