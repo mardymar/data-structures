@@ -62,7 +62,11 @@ BinaryTreeMethods.insert = function(value) {
 
 
 BinaryTreeMethods.contains = function(value) {
-  var currentNode = this.head;
+  if(this.value === value) {
+    return true;
+  }
+
+  var currentNode = this.left;
 
   while (currentNode !== null) {
     if(currentNode.value === value) {
@@ -77,7 +81,24 @@ BinaryTreeMethods.contains = function(value) {
       currentNode = currentNode.right;
     }
   }
-return false;
+
+  currentNode = this.right;
+
+  while (currentNode !== null) {
+    if(currentNode.value === value) {
+      return true;
+    }
+
+    if (value < currentNode.value) {
+      currentNode = currentNode.left;
+    }
+
+    if (value > currentNode.value) {
+      currentNode = currentNode.right;
+    }
+  }
+
+  return false;
 }
 
 
