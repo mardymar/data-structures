@@ -3,6 +3,7 @@ var HashTable = function() {
   this._storage = LimitedArray(this._limit);
   this.size = 0;
   this.newStorage = null;
+  this.min = 8;
 };
 
 HashTable.prototype.insert = function(k, v) {
@@ -13,6 +14,23 @@ HashTable.prototype.insert = function(k, v) {
     console.log('in if ' + this.size);
     this.rehash(2);
   }
+
+ // if (this.size <= this._limit * .25) {
+
+ //    this.size = 0;
+ //    console.log('in if ' + this.size);
+ //    this.rehash(.5);
+ //  }
+
+  // if (this._limit >= (this.min * 2) && this.size <= this._limit * .25) {
+  //   this.size = 0;
+  //   this.rehash(.5);
+  // }
+
+  // if (this.size <= this._limit * .25) {
+  //   this.size = 0;
+  //   this.rehash(.5);
+  // }
 
   var index = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage[index];
@@ -68,24 +86,14 @@ HashTable.prototype.remove = function(k) {
 };
 
 HashTable.prototype.rehash = function(newLimit) {
-  console.log("rehash .. " + JSON.stringify(this._storage ));
-  //var ht = new HashTable();
-  //ht._limit = ht._limit * newLimit;
   this._limit = this._limit * newLimit;
   this.newStorage = LimitedArray(this._limit);
-
-  console.log("hit1");
-  this._storage.each(function(bucket, index){
-    console.log("hit2 ... " + bucket + ' ... index ... ' + index);
-    if(bucket !== undefined){
-      console.log("bucket if ... " + bucket);
-      this.newStorage.insert(bucket[0], bucket[1]);
+  var index = this._storage;
+  for (var key in index) {
+    for (var i = 0; i < index.length; i++) {
+    this.newStorage.push([this._storage[key][i][0],this._storage[key][i][1]])
     }
-  });
-
-  console.log("hit3");
-  console.log("newStorage  .. " + JSON.stringify( newStorage ));
-
+  }
   this._storage = JSON.parse(JSON.stringify(this.newStorage));
 }
 
