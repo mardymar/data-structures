@@ -83,20 +83,36 @@ HashTable.prototype.remove = function(k) {
   }
 };
 
-HashTable.prototype.rehash = function(newLimit) {
-  this._limit = this._limit * newLimit;
-  this.newStorage = LimitedArray(this._limit);
-  var index = this._storage;
-  for (var key in index) {
-    for (var i = 0; i < index.length; i++) {
-    this.newStorage.push([this._storage[key][i][0],this._storage[key][i][1]])
-    }
-  }
-  this._storage = JSON.parse(JSON.stringify(this.newStorage));
-}
+// HashTable.prototype.rehash = function(newLimit) {
+//   this._limit = this._limit * newLimit;
+//   var newStorage = LimitedArray(this._limit);
+
+//   var index = this._storage;
+//   for (var key in index) {
+//     for (var i = 0; i < index.length; i++) {
+//     newStorage.insert(this._storage[key][i][0], this._storage[key][i][1]);
+//     }
+//   }
+
+//   this._storage = JSON.parse(JSON.stringify(newStorage));
+// }
 
 /*
  * Complexity: What is the time complexity of the above functions?
  */
+
+ HashTable.prototype.rehash = function(newLimit) {
+
+
+   this._limit = this._limit * newLimit;
+   var newStorage = LimitedArray(this._limit);
+
+   this._storage.each(function(bucket, index){
+     console.log("hit2 ... " + bucket + ' ... index ... ' + index);
+     if(bucket !== undefined){
+       console.log("bucket if ... " + bucket);
+       newStorage.insert(bucket[0], bucket[1]);
+    }
+  });
 
 
