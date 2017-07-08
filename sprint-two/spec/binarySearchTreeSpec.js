@@ -36,4 +36,17 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3]);
   });
+
+  it('should should correctly return the largest and smallest nodes', function() {
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(8);
+    binarySearchTree.insert(1);
+    expect(binarySearchTree.graphValLeft(binarySearchTree)).to.equal(1);
+    expect(binarySearchTree.graphValRight(binarySearchTree)).to.equal(8);
+    //expect(binarySearchTree.graphRange()).to.equal(7);
+  });
+
 });

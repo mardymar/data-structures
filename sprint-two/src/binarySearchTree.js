@@ -125,6 +125,50 @@ BinaryTreeMethods.depthFirstLogRecursion = function(cb, node) {
 };
 
 
+BinaryTreeMethods.graphValLeft = function(node) {
+  // var current = node;
+
+  // while(current.left !== null) {
+  //   current = current.left;
+  // }
+
+  // return current.value;
+
+
+  if (node.left !== null) {
+    return this.graphValLeft(node.left);
+  }
+  else {
+    var smallest = node.value;
+    console.log(smallest);
+    return smallest;
+  }
+}
+
+BinaryTreeMethods.graphValRight = function(node) {
+  var current = node;
+
+  while(current.right !== null) {
+    current = current.right;
+  }
+
+  return current.value;
+
+
+  // if (node.right !== null) {
+  //   this.graphValRight(node.right);
+  // }
+  // else {
+  //   var largest = node.value;
+  //   console.log(largest);
+  //   return largest;
+  // }
+}
+
+BinaryTreeMethods.graphRange = function() {
+  return this.graphValRight(this) - this.graphLeft(this);
+}
+
 var BSNode = function(value) {
   this.value = value;
   this.left = null;
