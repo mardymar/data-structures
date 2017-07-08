@@ -1,4 +1,4 @@
-describe('linkedList', function() {
+describe('doublyLinkedList', function() {
   var linkedList;
 
   beforeEach(function() {
@@ -49,6 +49,28 @@ describe('linkedList', function() {
     linkedList.addToTail(5);
     linkedList.removeHead();
     expect(linkedList.contains(4)).to.equal(false);
+  });
+
+  it('should contain a value that was added to the beginning of the LinkedList', function() {
+    linkedList.addToHead(4);
+    linkedList.addToHead(5);
+    expect(linkedList.contains(4)).to.equal(true);
+    expect(linkedList.contains(5)).to.equal(true);
+  });
+
+  it('should add items to the front of the linked list when adding to head', function() {
+    linkedList.addToHead(4);
+    linkedList.addToHead(5);
+    expect(linkedList.removeHead()).to.equal(5);
+    expect(linkedList.removeHead()).to.equal(4);
+  });
+
+  it('should remove items from tail', function() {
+    linkedList.addToHead(4);
+    linkedList.addToHead(5);
+    linkedList.addToHead(6);
+    expect(linkedList.removeTail()).to.equal(4);
+    expect(linkedList.removeTail()).to.equal(5);
   });
 
   // add more tests here to test the functionality of linkedList

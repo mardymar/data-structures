@@ -78,19 +78,14 @@ describe('hashTable', function() {
     ['John', 'Resig'], ['Brendan', 'Eich'], ['Alan', 'Turing'], ['Marc', 'Perry'], ['James', 'Critelli']];
   it ('limit should not drop below 8', function() {
 
-    console.log('x');
     _.each(newPeople, function(person) {
-      console.log(person)
         var firstName = person[0];
         var lastName = person[1];
         hashTable.insert(firstName, lastName);
       });
 
-    console.log('x');
     hashTable.remove('George');
-    console.log('x');
     hashTable.remove('Dr.');
-    console.log('x');
     hashTable.remove('Steven');
     hashTable.remove('John');
     hashTable.remove('Mr.');
