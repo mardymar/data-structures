@@ -73,4 +73,34 @@ describe('hashTable', function() {
     hashTable.remove('Mr.');
     expect(hashTable._limit).to.equal(8);
   });
+
+  var newPeople = [['Steven', 'Tyler'], ['George', 'Harrison'], ['Mr.', 'Doob'], ['Dr.', 'Sunshine'],
+    ['John', 'Resig'], ['Brendan', 'Eich'], ['Alan', 'Turing'], ['Marc', 'Perry'], ['James', 'Critelli']];
+  it ('limit should not drop below 8', function() {
+
+    console.log('x');
+    _.each(newPeople, function(person) {
+      console.log(person)
+        var firstName = person[0];
+        var lastName = person[1];
+        hashTable.insert(firstName, lastName);
+      });
+
+    console.log('x');
+    hashTable.remove('George');
+    console.log('x');
+    hashTable.remove('Dr.');
+    console.log('x');
+    hashTable.remove('Steven');
+    hashTable.remove('John');
+    hashTable.remove('Mr.');
+    hashTable.remove('Brendan');
+    hashTable.remove('Alan.');
+    hashTable.remove('Marc');
+    hashTable.remove('James');
+    hashTable.remove('Jerry');
+    hashTable.remove('Sigmund');
+    hashTable.remove('Carl');
+    expect(hashTable._limit).to.equal(8);
+  });
 });

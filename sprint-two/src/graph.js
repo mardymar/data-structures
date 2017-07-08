@@ -9,8 +9,15 @@ var Graph = function() {
 Graph.prototype.addNode = function(node) {
   var n = GraphNode(node);
   this.nodes.push(n);
-
 };
+
+Graph.prototype.checkIfConnected = function() {
+  var result = [];
+  for(var i = 0; i < this.nodes.length; i++){
+    result = result.concat(this.nodes[i].edges);
+  }
+  return result > 0;
+}
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
